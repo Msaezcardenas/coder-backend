@@ -22,7 +22,6 @@ class ProductManager {
       'status',
       'stock',
       'category',
-      'thumbnails',
     ];
 
     for (const field of requiredFields) {
