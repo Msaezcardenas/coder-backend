@@ -4,6 +4,9 @@ import CartsRoute from './routes/carts.router.js';
 import handlebars from 'express-handlebars';
 import ViewsRouters from './routes/viewsRouters.router.js';
 import { __dirname } from './utils.js';
+import { Server, Socket } from 'socket.io';
+import ProductManager from './Class/ProductManager.js';
+const productManager = new ProductManager(__dirname + '/data/products.json');
 
 const app = express();
 const port = 8080;
@@ -19,6 +22,20 @@ app.use('/api/carts/', CartsRoute);
 app.use('/', ViewsRouters);
 app.use(express.static(__dirname + '/public'));
 
-app.listen(port, () => {
+const productList = await productManager.getProducts();
+
+const httpServer = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
+});
+
+const io = new Server(httpServer);
+
+io.on('connection', (socket) => {
+  console.log('Nueva coonexion');
+
+  io.emit('productos', productList);
+  socket.on('new-product', async (product) => {
+    console.log(product);
+    const test = await productManager.addProduct(product);
+  });
 });

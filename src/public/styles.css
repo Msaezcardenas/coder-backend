@@ -1,0 +1,16 @@
+body {
+  text-align: center;
+}
+
+.container-products {
+  display: flex;
+  flex-direction: row;
+}
+
+.card-product {
+  background-color: red;
+  width: 320px;
+  text-align: left;
+  border: solid 1px black;
+  margin: 5px;
+}
