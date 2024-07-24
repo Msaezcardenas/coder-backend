@@ -1,7 +1,7 @@
 {
   "data": [
     {
-      "title": "gingegr",
+      "title": "ginger",
       "description": "fermentado en base a jengibre",
       "code": "fje",
       "price": 3000,
@@ -13,46 +13,25 @@
     },
     {
       "title": "kombucha",
-      "description": "fermentado en base a te",
-      "code": "fte",
-      "price": 2000,
+      "description": "fermentado en base a jengibre",
+      "code": "fje",
+      "price": 3000,
       "status": true,
       "category": "sin alcohol",
       "stock": 2,
-      "thumbnails": ["www./img/kombucha"],
+      "thumbnails": ["www./img/jinger"],
       "id": 2
     },
     {
       "title": "cerveza",
-      "description": "fermentado en base a trigo",
-      "code": "fte",
-      "price": 5000,
-      "status": true,
-      "category": "con alcohol",
-      "stock": 2,
-      "thumbnails": ["www./img/cerveza"],
-      "id": 3
-    },
-    {
-      "title": "kefir",
-      "description": "fermentado",
-      "code": "fke",
-      "price": 5000,
+      "description": "fermentado en base a jengibre",
+      "code": "fje",
+      "price": 3000,
       "status": true,
       "category": "sin alcohol",
       "stock": 2,
-      "thumbnails": ["www./img/kefir"],
-      "id": 4
-    },
-    {
-      "title": "asdasd",
-      "description": "asdasd",
-      "code": "s",
-      "price": "12",
-      "status": "asd",
-      "stock": "646",
-      "category": "asdasd",
-      "id": 5
+      "thumbnails": ["www./img/jinger"],
+      "id": 3
     }
   ]
 }

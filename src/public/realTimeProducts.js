@@ -1,28 +1,21 @@
 const socket = io();
+
 let vista = document.getElementById('otro');
 
-socket.on('productos', (data) => {
-  console.log(data);
-  const contenedor = document.querySelector('#container-products');
+socket.on('realtime', (data) => {
+  const contenedor = document.querySelector('#otro');
 
-  let concatenador = '';
+  console.log({ data });
+
+  let htmlFragment = '';
   data.forEach((product) => {
-    console.log(product);
-    const button = document.createElement('button');
-    contenedor.appendChild(button);
-
-    concatenador += `<h1>${product.title}</h1>`;
-
-    const div = document.createElement('div');
-    div.className = 'product';
-    div.innerHTML = `
+    htmlFragment += `
                 <h2>${product.title}</h2>
-                <p>${product.description}</p>`;
+                <p>${product.description}</p>
+                <button id=${product.id} onclick='deleteProduct(${product.id})' class='btn-delete' > Eliminar </button>`;
 
-    contenedor.appendChild(div);
-    console.log(concatenador);
+    contenedor.innerHTML = htmlFragment;
   });
-  vista.innerHTML(concatenador);
 });
 
 const formulario = document.getElementById('form');
@@ -32,3 +25,7 @@ formulario.addEventListener('submit', (event) => {
   const product = Object.fromEntries(new FormData(event.target));
   socket.emit('new-product', product);
 });
+
+const deleteProduct = (id) => {
+  socket.emit('delete-product', id);
+};

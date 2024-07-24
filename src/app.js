@@ -22,20 +22,31 @@ app.use('/api/carts/', CartsRoute);
 app.use('/', ViewsRouters);
 app.use(express.static(__dirname + '/public'));
 
-const productList = await productManager.getProducts();
-
 const httpServer = app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
 
-const io = new Server(httpServer);
+const socketServer = new Server(httpServer);
 
-io.on('connection', (socket) => {
+socketServer.on('connection', async (socket) => {
   console.log('Nueva coonexion');
 
-  io.emit('productos', productList);
+  try {
+    const productList = await productManager.getProducts();
+    socket.emit('productos', productList);
+    socket.emit('realtime', productList);
+  } catch (error) {
+    console.log(error);
+  }
+
   socket.on('new-product', async (product) => {
-    console.log(product);
-    const test = await productManager.addProduct(product);
+    await productManager.addProduct(product);
+  });
+
+  socket.on('delete-product', async (id) => {
+    console.log({ id });
+    await productManager.deleteProduct(id);
+    const updateProducts = await productManager.getProducts();
+    socket.emit('realtime', updateProducts);
   });
 });
