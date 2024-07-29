@@ -33,7 +33,7 @@ socketServer.on('connection', async (socket) => {
 
   try {
     const productList = await productManager.getProducts();
-    socket.emit('productos', productList);
+    socket.emit('products', productList);
     socket.emit('realtime', productList);
   } catch (error) {
     console.log(error);

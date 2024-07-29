@@ -3,7 +3,7 @@ import { Router } from 'express';
 const app = Router();
 
 app.get('/products', async (req, res) => {
-  res.render('index');
+  res.render('products');
 });
 
 app.get('/realtimeproducts', (req, res) => {
