@@ -3,16 +3,25 @@ const socket = io();
 let vista = document.getElementById('otro');
 
 socket.on('realtime', (data) => {
-  const contenedor = document.querySelector('#otro');
+  const contenedor = document.querySelector('#cards-container');
 
   console.log({ data });
 
   let htmlFragment = '';
   data.forEach((product) => {
     htmlFragment += `
+              <div class='card'>
                 <h2>${product.title}</h2>
-                <p>${product.description}</p>
-                <button id=${product.id} onclick='deleteProduct(${product.id})' class='btn-delete' > Eliminar </button>`;
+                <div class='code'>${product.code} </div>
+                <div class='description'>${product.description}</div>
+                <div class='price'>${product.price} </div>
+                <div class='class-section'> 
+                  <div>Stock: ${product.stock} </div>
+                  <div>Categoría: ${product.category} </div>
+                </div>
+                
+                <button id=${product.id} onclick='deleteProduct(${product.id})' class='btn-delete' > Eliminar </button>
+               </div>`;
 
     contenedor.innerHTML = htmlFragment;
   });
