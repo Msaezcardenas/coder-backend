@@ -1,11 +1,8 @@
-<h1> Holita desde el server </h1>
-<div class='container-products' id='container-products'>
-  {{#each productList}}
-    <div class='card-product'>
-      {{this.title}}
-    </div>
-  {{/each}}
+<div class='products'>
+  <h1> Products </h1>
+  <div class='cards-container' id='cards-container'></div>
 </div>
+
 <link rel='stylesheet' href='styles.css' />
 <script src='/socket.io/socket.io.js'></script>
 <script src='products.js'> </script>
