@@ -1,4 +1,8 @@
 import fs from 'node:fs';
+import ProductManager from './ProductManager.js';
+import { __dirname } from '../utils.js';
+
+const productManager = new ProductManager(__dirname + '/data/products.json');
 
 class CartManager {
   constructor(path) {
@@ -19,32 +23,48 @@ class CartManager {
     return foundCart;
   }
 
+  async createCart() {
+    try {
+      await this.getCarts();
+      const newCart = { id: this.carts.length + 1, products: [] };
+      this.carts.push(newCart);
+      await fs.promises.writeFile(this.path, JSON.stringify({ data: this.carts }));
+      return newCart;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   async addProductToCart(cid, pid) {
-    // obtengo lista de carros
-    this.carts = await this.getCarts();
+    try {
+      const products = await productManager.getProducts();
+      if (products.some((product) => product.id === pid)) {
+        const carts = await this.getCarts();
 
-    // agrego nuevo producto al array de productos
-    const cartsUpdated = this.carts.map((cart) => {
-      if (cart.id !== cid) return cart;
+        // si existe el carrito le agrego un producto
+        if (carts.some((cart) => cart.id === cid)) {
+          let cart = carts.find((cart) => cart.id === cid);
+          const indexProduct = cart.products.findIndex((product) => product.id === pid);
+          const indexCart = carts.findIndex((cart) => cart.id === cid);
 
-      const indexProduct = cart.products.findIndex(
-        (product) => product.id === pid,
-      );
-      if (indexProduct === -1) {
-        cart.products.push({ id: pid, quantity: 1 });
-        return cart;
+          if (indexProduct !== -1) cart.products[indexProduct].quantity++;
+          else cart.products.push({ id: pid, quantity: 1 });
+
+          //actualizo carrito
+          carts[indexCart] = cart;
+
+          //actualizo array de carritos
+          await fs.promises.writeFile(this.path, JSON.stringify({ data: this.carts }));
+        } else {
+          throw new Error(`no existe carrito con id: ${cid}`);
+        }
+      } else {
+        throw new Error(`There is no product with id: ${pid}`);
       }
-      cart.products[indexProduct] = {
-        ...cart.products[indexProduct],
-        quantity: cart.products[indexProduct].quantity + 1,
-      };
-      return cart;
-    });
-    this.carts = [...cartsUpdated];
-    await fs.promises.writeFile(
-      this.path,
-      JSON.stringify({ data: this.carts }),
-    );
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 }
 

@@ -26,4 +26,22 @@ router.get('/:cid', async (req, res) => {
   }
 });
 
+router.get('/', async (req, res) => {
+  try {
+    const carts = await cartsManager.getCarts();
+    res.status(200).json({ data: carts });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const newCart = await cartsManager.createCart();
+    res.status(201).json({ data: newCart });
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
 export default router;
