@@ -1,7 +1,6 @@
 const socket = io();
 
 const contenedor = document.querySelector('#cards-container');
-console.log(contenedor);
 
 socket.on('products', (products) => {
   let card = '';

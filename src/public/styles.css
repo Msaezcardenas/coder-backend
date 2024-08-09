@@ -55,7 +55,16 @@ body {
     border: 1px solid #d6d6d6;
     padding: 8px;
   }
-  input[type='text']:focus {
+  input:focus {
+    outline: none;
+  }
+  .status {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+  }
+  select:focus {
     outline: none;
   }
 }
@@ -88,8 +97,7 @@ body {
   justify-items: center;
   .card {
     justify-content: space-between;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     border: transparent;
     width: 300px;
     padding: 0 1rem 2rem;

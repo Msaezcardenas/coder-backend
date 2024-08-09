@@ -6,6 +6,7 @@ import ViewsRouters from './routes/viewsRouters.router.js';
 import { __dirname } from './utils.js';
 import { Server, Socket } from 'socket.io';
 import ProductManager from './Class/ProductManager.js';
+import mongoose from 'mongoose';
 const productManager = new ProductManager(__dirname + '/data/products.json');
 
 const app = express();
@@ -49,4 +50,13 @@ socketServer.on('connection', async (socket) => {
     const updateProducts = await productManager.getProducts();
     socket.emit('realtime', updateProducts);
   });
+
+  mongoose
+    .connect(
+      'mongodb+srv://molusaezcardenas:tSUzZOhFjzWqQmid@ecommerce.cxnn6t9.mongodb.net/?retryWrites=true&w=majority&appName=Ecommerce',
+      { dbName: 'products' },
+    )
+    .then(() => {
+      console.log('lista BD mongoDB');
+    });
 });

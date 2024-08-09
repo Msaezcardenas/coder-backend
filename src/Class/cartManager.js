@@ -11,16 +11,23 @@ class CartManager {
   }
 
   async getCarts() {
-    // obtener carros
-    const dataCarts = await fs.promises.readFile(this.path, 'utf-8');
-    this.carts = [...JSON.parse(dataCarts).data];
-    return [...this.carts];
+    try {
+      const dataCarts = await fs.promises.readFile(this.path, 'utf-8');
+      this.carts = [...JSON.parse(dataCarts).data];
+      return [...this.carts];
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getCartById(cid) {
-    this.carts = await this.getCarts();
-    let foundCart = this.carts.find((cart) => cart.id === cid);
-    return foundCart;
+    try {
+      this.carts = await this.getCarts();
+      let foundCart = this.carts.find((cart) => cart.id === cid);
+      return foundCart;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async createCart() {
@@ -31,7 +38,7 @@ class CartManager {
       await fs.promises.writeFile(this.path, JSON.stringify({ data: this.carts }));
       return newCart;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -62,7 +69,6 @@ class CartManager {
         throw new Error(`There is no product with id: ${pid}`);
       }
     } catch (error) {
-      console.log(error);
       throw error;
     }
   }
