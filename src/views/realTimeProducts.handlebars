@@ -6,50 +6,44 @@
       <h2> Crear Producto</h2>
       <div class='form-inputs'>
 
-        <div class='inputs'> 
+        <div class='inputs'>
           <label for='title'>Titulo:</label>
-          <input
-            type='text'
-            id='title'
-            name='title'
-            required
-            placeholder='Titulo'
-          />
+          <input type='text' id='title' name='title' required placeholder='Titulo' />
         </div>
 
-        <div class="inputs">
+        <div class='inputs'>
           <label for='description'>Descripción:</label>
           <input type='text' id='description' name='description' placeholder='Descripción' />
         </div>
 
-        <div class="inputs">
+        <div class='inputs'>
           <label for='code'>Código:</label>
-          <input type='text' id='code' name='code' placeholder='Código'/>
+          <input type='text' id='code' name='code' placeholder='Código' />
         </div>
 
-        <div class="inputs">
+        <div class='inputs'>
           <label for='price'>Precio:</label>
-          <input type='number' id='price' name='price' placeholder='Precio'/>
+          <input type='number' id='price' name='price' placeholder='Precio' />
         </div>
 
-        <div class="inputs">
+        <div class='inputs'>
           <label for='status'>Estado:</label>
-           <select class='status'>
-              <option value="true">Disponible</option>
-              <option value="false">No Disponible</option>
-            </select>
+          <select class='status'>
+            <option value='true'>Disponible</option>
+            <option value='false'>No Disponible</option>
+          </select>
         </div>
 
-        <div class="inputs">
+        <div class='inputs'>
           <label for='stock'>Stock:</label>
-          <input type='number' id='stock' name='stock' placeholder='Stock'/>
+          <input type='number' id='stock' name='stock' placeholder='Stock' />
         </div>
 
-        <div class="inputs">
+        <div class='inputs'>
           <label for='category'>Categoría:</label>
-          <input type='category' id='category' name='category' placeholder='Categoría'/>
+          <input type='category' id='category' name='category' placeholder='Categoría' />
         </div>
-      
+
       </div>
 
       <input type='submit' value='Crear producto' class='btn-submit' />
@@ -58,15 +52,17 @@
 
   <div>
     <div id='cards-container' class='cards-container'>
-  </div>
-
-  </div>
-  
+    </div>
 
   </div>
 
+  <div id='pagination'>lista
+
+  </div>
+  <button id='prev-page'>Anterior</button>
+  <button id='next-page'>Siguiente</button>
 </div>
 
 <link rel='stylesheet' href='styles.css' />
-<script src='/socket.io/socket.io.js'></script>
-<script src='realTimeProducts.js'> </script>
+{{! <script src='/socket.io/socket.io.js'></script> }}
+<script src='/js/realTimeProducts.js'> </script>

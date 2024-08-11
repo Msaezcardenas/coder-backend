@@ -1,40 +1,40 @@
-const socket = io();
+// const socket = io();
 
-let vista = document.getElementById('otro');
+// let vista = document.getElementById('otro');
 
-socket.on('realtime', (data) => {
-  const contenedor = document.querySelector('#cards-container');
+// socket.on('realtime', (data) => {
+//   const contenedor = document.querySelector('#cards-container');
 
-  console.log({ data });
+//   console.log({ data });
 
-  let htmlFragment = '';
-  data.forEach((product) => {
-    htmlFragment += `
-              <div class='card'>
-                <h2>${product.title}</h2>
-                <div class='code'>${product.code} </div>
-                <div class='description'>${product.description}</div>
-                <div class='price'>Precio: $${product.price} </div>
-                <div class='class-section'> 
-                  <div>Stock: ${product.stock} </div>
-                  <div>Categoría: ${product.category} </div>
-                </div>
-                
-                <button id=${product.id} onclick='deleteProduct(${product.id})' class='btn-delete' > Eliminar </button>
-               </div>`;
+//   let htmlFragment = '';
+//   data.forEach((product) => {
+//     htmlFragment += `
+//               <div class='card'>
+//                 <h2>${product.title}</h2>
+//                 <div class='code'>${product.code} </div>
+//                 <div class='description'>${product.description}</div>
+//                 <div class='price'>Precio: $${product.price} </div>
+//                 <div class='class-section'>
+//                   <div>Stock: ${product.stock} </div>
+//                   <div>Categoría: ${product.category} </div>
+//                 </div>
 
-    contenedor.innerHTML = htmlFragment;
-  });
-});
+//                 <button id=${product.id} onclick='deleteProduct(${product.id})' class='btn-delete' > Eliminar </button>
+//                </div>`;
 
-const formulario = document.getElementById('form');
+//     contenedor.innerHTML = htmlFragment;
+//   });
+// });
 
-formulario.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const product = Object.fromEntries(new FormData(event.target));
-  socket.emit('new-product', product);
-});
+// const formulario = document.getElementById('form');
 
-const deleteProduct = (id) => {
-  socket.emit('delete-product', id);
-};
+// formulario.addEventListener('submit', (event) => {
+//   event.preventDefault();
+//   const product = Object.fromEntries(new FormData(event.target));
+//   socket.emit('new-product', product);
+// });
+
+// const deleteProduct = (id) => {
+//   socket.emit('delete-product', id);
+// };

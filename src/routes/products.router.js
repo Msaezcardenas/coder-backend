@@ -38,6 +38,7 @@ router.get('/', async (req, res) => {
     //   res.status(201).json({ data: productList });
     // }
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: 'Server Error' });
   }
 });
