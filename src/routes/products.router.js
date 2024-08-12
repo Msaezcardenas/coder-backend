@@ -45,8 +45,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:pid', async (req, res) => {
   try {
-    let pid = parseInt(req.params.pid);
-    const foundProduct = await productManager.getProductById(pid);
+    let pid = req.params.pid;
+    const foundProduct = await ProductModel.findById({ _id: pid });
+    // const foundProduct = await productManager.getProductById(pid);
     if (foundProduct) res.send(foundProduct);
   } catch (error) {
     res.status(404).json({ error: error.message });

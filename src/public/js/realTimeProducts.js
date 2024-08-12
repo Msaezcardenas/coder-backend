@@ -12,6 +12,7 @@ const getProductsList = async (page) => {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
+    console.log(data);
     page = data.page;
     renderCards(data);
     //renderPagination({ ...data });
