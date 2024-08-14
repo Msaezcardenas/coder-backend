@@ -59,4 +59,40 @@ router.post('/', async (req, res) => {
   }
 });
 
+router.delete('/:cid/product/:pid', async (req, res) => {
+  const { cid, pid } = req.params;
+
+  const cartFinded = await CartModel.findById(cid).lean();
+  if (!cartFinded) res.status(404).json({ message: 'error' });
+
+  const cartFiltered = {
+    ...cartFinded,
+    products: cartFinded.products.filter((prod) => prod.product.toString() !== pid),
+  };
+
+  const cartUpdated = await CartModel.findByIdAndUpdate(cid, cartFiltered, {
+    new: true,
+  }).populate('products.product');
+
+  res.status(201).json({ message: 'Product deleted', cart: cartUpdated });
+});
+
+router.put('/:cid/product/:pid', async (req, res) => {
+  const { cid, pid } = req.params;
+  const { quantity } = req.body;
+
+  const cartFinded = await CartModel.findById(cid).lean();
+  if (!cartFinded) res.status(404).json({ message: 'error' });
+
+  const indexProd = cartFinded.products.findIndex((prod) => prod.product.toString() === pid);
+
+  cartFinded.products[indexProd] = { ...cartFinded.products[indexProd], quantity };
+
+  const cartUpdated = await CartModel.findByIdAndUpdate(cid, cartFinded, {
+    new: true,
+  }).populate('products.product');
+
+  res.status(201).json({ message: 'Product Quantity Modify', cart: cartUpdated });
+});
+
 export default router;
