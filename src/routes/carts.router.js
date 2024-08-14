@@ -95,4 +95,22 @@ router.put('/:cid/product/:pid', async (req, res) => {
   res.status(201).json({ message: 'Product Quantity Modify', cart: cartUpdated });
 });
 
+router.put('/:cid', async (req, res) => {
+  const { cid } = req.params;
+  const { products } = req.body;
+
+  const cartFinded = await CartModel.findById(cid).lean();
+  if (!cartFinded) res.status(404).json({ message: 'error' });
+
+  const newCart = {
+    ...cartFinded,
+    products,
+  };
+  const cartUpdated = await CartModel.findByIdAndUpdate(cid, newCart, {
+    new: true,
+  }).populate('products.product');
+
+  res.status(201).json({ message: 'Products clean', cart: cartUpdated });
+});
+
 export default router;
