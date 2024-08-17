@@ -25,6 +25,8 @@ router.get('/', async (req, res) => {
       },
     );
 
+    // console.log('------->', productos);
+
     res.json({
       ...productos,
       status: 'success',

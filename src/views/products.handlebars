@@ -1,19 +1,21 @@
 <div class='products'>
   <h1> Products </h1>
   <div class='cards-container' id='cards-container'>
-    <div class='card'>
-      <h2>{{this.title}}</h2>
-      <div class='code'>{{this.code}} </div>
-      <div class='description'>{{this.description}}</div>
-      <div class='price'>Precio: ${{this.price}} </div>
-      <div class='class-section'>
-        <div>Stock: {{this.stock}} </div>
-        <div>Categoría: {{this.category}} </div>
+    {{#each docs}}
+      <div class='card'>
+        <h2>{{this.title}}</h2>
+        <div class='code'>{{this.code}} </div>
+        <div class='description'>{{this.description}}</div>
+        <div class='price'>Precio: ${{this.price}} </div>
+        <div class='class-section'>
+          <div>Stock: {{this.stock}} </div>
+          <div>Categoría: {{this.category}} </div>
+        </div>
+        <button id='${this.id}' onclick='deleteProduct(${product.id})' class='btn-delete'>
+          Eliminar
+        </button>
       </div>
-      <button id='${this.id}' onclick='deleteProduct(${product.id})' class='btn-delete'>
-        Eliminar
-      </button>
-    </div>
+    {{/each}}
   </div>
 
   <div class='flex justify-center items-center mb-8'>

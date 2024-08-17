@@ -4,8 +4,6 @@ import { ProductModel } from '../model/product.model.js';
 const app = Router();
 
 app.get('/products', async (req, res) => {
-  console.log('entra aqui');
-
   let page = parseInt(req.query.page);
   if (!page) {
     page = 1;
@@ -20,9 +18,8 @@ app.get('/products', async (req, res) => {
 
   //uso del metodo paginate
   try {
-    console.log('entra a try');
     const result = await ProductModel.paginate({}, options);
-    console.log(result.docs);
+
     result.title = 'Api-Coder';
     result.prevLink = result.hasPrevPage
       ? `http://localhost:8080/products?page=${result.prevPage}`
@@ -31,6 +28,7 @@ app.get('/products', async (req, res) => {
       ? `http://localhost:8080/products?page=${result.nextPage}`
       : '';
     result.isValid = !(page <= 0 || page > result.totalPages);
+    console.log('-------->', ...result.docs);
 
     res.render('products', result);
   } catch (error) {
