@@ -8,9 +8,7 @@ const productManager = new ProductManager(__dirname + '/data/products.json');
 
 router.get('/', async (req, res) => {
   try {
-    console.log(__dirname);
-    console.log('REQ:', req);
-    const { limit = 10, page = 1, sort = '', ...query } = req.query;
+    const { limit = 2, page = 1, sort = '', ...query } = req.query;
 
     const sortedManager = {
       asc: 1,
@@ -27,12 +25,12 @@ router.get('/', async (req, res) => {
       },
     );
 
-    console.log({ productos });
     res.json({
       ...productos,
       status: 'success',
     });
   } catch (error) {
+    console.log(error);
     res.status(400).json({ message: 'Server Error' });
   }
 });

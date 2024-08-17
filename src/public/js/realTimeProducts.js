@@ -1,6 +1,5 @@
 let vista = document.getElementById('otro');
 
-let productsList;
 let currentPage = 1;
 
 const getProductsList = async (page) => {
@@ -12,10 +11,8 @@ const getProductsList = async (page) => {
       throw new Error('Network response was not ok');
     }
     const data = await response.json();
-    console.log(data);
     page = data.page;
     renderCards(data);
-    //renderPagination({ ...data });
     document.getElementById('prev-page').disabled = currentPage === 1;
     document.getElementById('next-page').disabled = currentPage === data.totalPages;
   } catch (error) {
@@ -47,6 +44,10 @@ const renderCards = ({ ...data }) => {
   });
 };
 
+const deleteProduct = () => {
+  console.log('deletet');
+};
+
 document.getElementById('prev-page').addEventListener('click', () => {
   if (currentPage > 1) {
     currentPage = currentPage - 1;
@@ -59,20 +60,4 @@ document.getElementById('next-page').addEventListener('click', () => {
   getProductsList(currentPage + 1);
 });
 
-// const renderPagination = (info) => {
-//   console.log(info);
-//   const contenedor = document.querySelector('#pagination');
-//   let htmlFragment = '';
-//   htmlFragment += `<button id='prev-page' onclick='{() => ${getProducts(
-//     page - 1,
-//   )}}'>Anterior</button>
-//     <button id='next-page' onclick='{changePage()}'>Siguiente</button>`;
-
-//   contenedor.innerHTML = htmlFragment;
-// };
-
 getProductsList(currentPage);
-
-// const changePage = () => {
-//   console.log('NEXT');
-// };

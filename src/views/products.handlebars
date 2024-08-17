@@ -1,8 +1,35 @@
 <div class='products'>
   <h1> Products </h1>
-  <div class='cards-container' id='cards-container'></div>
+  <div class='cards-container' id='cards-container'>
+    <div class='card'>
+      <h2>{{this.title}}</h2>
+      <div class='code'>{{this.code}} </div>
+      <div class='description'>{{this.description}}</div>
+      <div class='price'>Precio: ${{this.price}} </div>
+      <div class='class-section'>
+        <div>Stock: {{this.stock}} </div>
+        <div>Categoría: {{this.category}} </div>
+      </div>
+      <button id='${this.id}' onclick='deleteProduct(${product.id})' class='btn-delete'>
+        Eliminar
+      </button>
+    </div>
+  </div>
+
+  <div class='flex justify-center items-center mb-8'>
+    {{#if hasPrevPage}}
+      <a href={{this.prevLink}} class='text-blue-500 font-bold hover:underline'>
+        Pagina anterior</a>
+    {{/if}}
+    <span class='font-bold'>{{this.page}}</span>
+    &nbsp;
+    {{#if hasNextPage}}
+      <a href={{this.nextLink}} class='text-blue-500 font-bold hover:underline'>Pagina siguiente</a>
+    {{/if}}
+  </div>
+
 </div>
 
 <link rel='stylesheet' href='styles.css' />
-<script src='/socket.io/socket.io.js'></script>
-<script src='products.js'> </script>
+{{! <script src='/socket.io/socket.io.js'></script> }}
+<script type='module' src='/js/products.js'> </script>
