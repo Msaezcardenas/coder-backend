@@ -25,8 +25,6 @@ router.get('/', async (req, res) => {
       },
     );
 
-    // console.log('------->', productos);
-
     res.json({
       ...productos,
       status: 'success',
@@ -64,7 +62,9 @@ router.put('/:pid', async (req, res) => {
 });
 
 router.delete('/:pid', async (req, res) => {
-  let pid = parseInt(req.params.pid);
+  let pid = req.params.pid;
+  console.log({ pid });
+
   try {
     await productManager.deleteProduct(pid);
     res.status(200).json({ message: 'Product delete' });

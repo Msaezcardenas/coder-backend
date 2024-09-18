@@ -11,7 +11,7 @@
           <div>Stock: {{this.stock}} </div>
           <div>Categoría: {{this.category}} </div>
         </div>
-        <button id='${this.id}' onclick='deleteProduct(${product.id})' class='btn-delete'>
+        <button onclick="deleteProduct('{{this._id}}')" class='btn-delete'>
           Eliminar
         </button>
       </div>
@@ -34,4 +34,11 @@
 
 <link rel='stylesheet' href='styles.css' />
 {{! <script src='/socket.io/socket.io.js'></script> }}
-<script type='module' src='/js/products.js'> </script>
+<script>
+
+  function deleteProduct(pid) { console.log("ingresa al delete")
+  fetch(`http://localhost:8080/api/carts/66ba83273118c9aa0ae29f3f/product/${pid}`, { method:
+  'DELETE', headers: { 'Content-Type': 'application/json', }, }, ) .then((res) => (res.ok ?
+  res.json() : Promise.reject(res))) .then((data) => { return data.data; }); }
+
+</script>

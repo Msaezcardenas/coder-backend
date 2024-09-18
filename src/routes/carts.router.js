@@ -41,6 +41,7 @@ router.get('/:cid', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
+    console.log('get desde cartrs');
     const carts = await cartsManager.getCarts();
     res.status(200).json({ data: carts });
   } catch (error) {
@@ -65,9 +66,11 @@ router.delete('/:cid/product/:pid', async (req, res) => {
   const cartFinded = await CartModel.findById(cid).lean();
   if (!cartFinded) res.status(404).json({ message: 'error' });
 
+  console.log(cartFinded);
+
   const cartFiltered = {
     ...cartFinded,
-    products: cartFinded.products.filter((prod) => prod.product.toString() !== pid),
+    products: cartFinded.products.filter((prod) => prod._id !== pid),
   };
 
   const cartUpdated = await CartModel.findByIdAndUpdate(cid, cartFiltered, {

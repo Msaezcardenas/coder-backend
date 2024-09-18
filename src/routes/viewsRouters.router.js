@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { ProductModel } from '../model/product.model.js';
+import { CartModel } from '../model/cart.model.js';
 
 const app = Router();
 
@@ -16,11 +17,10 @@ app.get('/products', async (req, res) => {
     lean: true,
   };
 
-  //uso del metodo paginate
   try {
     const result = await ProductModel.paginate({}, options);
 
-    result.title = 'Api-Coder';
+    result.title = 'Backend - 1';
     result.prevLink = result.hasPrevPage
       ? `http://localhost:8080/products?page=${result.prevPage}`
       : '';
@@ -28,7 +28,6 @@ app.get('/products', async (req, res) => {
       ? `http://localhost:8080/products?page=${result.nextPage}`
       : '';
     result.isValid = !(page <= 0 || page > result.totalPages);
-    console.log('-------->', ...result.docs);
 
     res.render('products', result);
   } catch (error) {
@@ -39,6 +38,22 @@ app.get('/products', async (req, res) => {
 
 app.get('/realtimeproducts', (req, res) => {
   res.render('realTimeProducts');
+});
+
+app.get('/carts/:cid', async (req, res) => {
+  const { cid } = req.params;
+  console.log(`ID del carrito: ${cid}`);
+
+  try {
+    const cart = await CartModel.findById(cid).populate('products.product').lean();
+    if (!cart) {
+      return res.status(404).json({ message: 'Carrito no encontrado' });
+    } else {
+      res.render('carts', { data: { ...cart.products } });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error al buscar el carrito', error: error.message });
+  }
 });
 
 export default app;
